@@ -61,6 +61,11 @@ fi
 
 
 # ── Symlinks ──────────────────────────────────────────────────────────────────
+# Preserve any existing .zshrc (e.g. devcontainer setup) as .zshrc.local
+if [ -f "$HOME/.zshrc" ] && [ ! -L "$HOME/.zshrc" ]; then
+  mv "$HOME/.zshrc" "$HOME/.zshrc.local"
+fi
+
 ln -sf "$DOTFILES/nvim"       "$HOME/.config/nvim"
 ln -sf "$DOTFILES/.zshrc"     "$HOME/.zshrc"
 ln -sf "$DOTFILES/.tmux.conf" "$HOME/.tmux.conf"
