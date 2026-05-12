@@ -66,6 +66,8 @@ if [ -f "$HOME/.zshrc" ] && [ ! -L "$HOME/.zshrc" ]; then
   mv "$HOME/.zshrc" "$HOME/.zshrc.local"
 fi
 
+[ -d "$HOME/.config/nvim" ] && [ ! -L "$HOME/.config/nvim" ] && rm -rf "$HOME/.config/nvim"
+
 ln -sf "$DOTFILES/nvim"       "$HOME/.config/nvim"
 ln -sf "$DOTFILES/.zshrc"     "$HOME/.zshrc"
 ln -sf "$DOTFILES/.tmux.conf" "$HOME/.tmux.conf"
