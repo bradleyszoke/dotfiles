@@ -2,12 +2,10 @@
 set -e
 
 DOTFILES="$(cd "$(dirname "$0")" && pwd)"
-OS="$(uname -s)"
 
-mkdir -p "$HOME/.local/bin" "$HOME/.config"
+mkdir -p "$HOME/.config"
 
 is_installed() { command -v "$1" >/dev/null 2>&1; }
-is_musl()      { ldd /bin/sh 2>&1 | grep -q musl; }
 
 # Use sudo for package managers unless already root
 SUDO=""
@@ -61,23 +59,6 @@ if ! is_installed fd && ! is_installed fdfind; then
   fi
 fi
 
-# ── Yazi ──────────────────────────────────────────────────────────────────────
-if ! is_installed yazi; then
-  case "$OS" in
-    Linux)
-      if is_musl; then YAZI_TARGET="x86_64-unknown-linux-musl"
-      else             YAZI_TARGET="x86_64-unknown-linux-gnu"
-      fi
-      curl -sSfLo /tmp/yazi.zip "https://github.com/sxyazi/yazi/releases/latest/download/yazi-${YAZI_TARGET}.zip"
-      unzip -o /tmp/yazi.zip -d /tmp/yazi-extract
-      mv "/tmp/yazi-extract/yazi-${YAZI_TARGET}/yazi" "$HOME/.local/bin/yazi"
-      rm -rf /tmp/yazi.zip /tmp/yazi-extract
-      ;;
-    Darwin)
-      echo "Install Yazi on macOS: brew install yazi"
-      ;;
-  esac
-fi
 
 # ── Symlinks ──────────────────────────────────────────────────────────────────
 ln -sf "$DOTFILES/nvim"       "$HOME/.config/nvim"
