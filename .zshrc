@@ -14,8 +14,7 @@ compinit
 
 eval "$(zoxide init zsh)"
 
-export PATH="$HOME/.opencode/bin:$PATH"
-export PATH="$HOME/go/bin:$PATH"
+export PATH="$HOME/.local/bin:$HOME/.opencode/bin:$HOME/go/bin:$PATH"
 
 function y() {
   local tmp="$(mktemp -t "yazi-cwd.XXXXXX")" cwd
