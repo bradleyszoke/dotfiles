@@ -20,21 +20,18 @@ fi
 
 # ── Starship ──────────────────────────────────────────────────────────────────
 if ! is_installed starship; then
-  case "$OS" in
-    Linux)
-      curl -sSLo /tmp/starship.tar.gz "https://github.com/starship/starship/releases/latest/download/starship-x86_64-unknown-linux-gnu.tar.gz"
-      tar -xzf /tmp/starship.tar.gz -C "$HOME/.local/bin" starship
-      rm /tmp/starship.tar.gz
-      ;;
-    Darwin)
-      curl -sS https://starship.rs/install.sh | sh -s -- --yes
-      ;;
-  esac
+  if is_installed apt-get; then $SUDO apt-get install -y starship
+  elif is_installed apk;   then $SUDO apk add --no-cache starship
+  else curl -sS https://starship.rs/install.sh | sh -s -- --yes --bin-dir "$HOME/.local/bin"
+  fi
 fi
 
 # ── Zoxide ────────────────────────────────────────────────────────────────────
 if ! is_installed zoxide; then
-  curl -sSfL https://raw.githubusercontent.com/ajeetdsouza/zoxide/main/install.sh | sh
+  if is_installed apt-get; then $SUDO apt-get install -y zoxide
+  elif is_installed apk;   then $SUDO apk add --no-cache zoxide
+  else curl -sSfL https://raw.githubusercontent.com/ajeetdsouza/zoxide/main/install.sh | sh
+  fi
 fi
 
 # ── FZF ───────────────────────────────────────────────────────────────────────
@@ -45,20 +42,10 @@ fi
 
 # ── Neovim ────────────────────────────────────────────────────────────────────
 if ! is_installed nvim; then
-  case "$OS" in
-    Linux)
-      if is_installed apk; then
-        $SUDO apk add --no-cache neovim
-      else
-        curl -sSLo /tmp/nvim.tar.gz https://github.com/neovim/neovim/releases/latest/download/nvim-linux-x86_64.tar.gz
-        tar -xzf /tmp/nvim.tar.gz -C "$HOME/.local" --strip-components=1
-        rm /tmp/nvim.tar.gz
-      fi
-      ;;
-    Darwin)
-      echo "Install Neovim on macOS: brew install neovim"
-      ;;
-  esac
+  if is_installed apt-get;   then $SUDO apt-get install -y neovim
+  elif is_installed apk;     then $SUDO apk add --no-cache neovim
+  else echo "Install Neovim on macOS: brew install neovim"
+  fi
 fi
 
 # ── ripgrep + fd (required by Telescope) ─────────────────────────────────────
