@@ -68,9 +68,7 @@ if ! is_installed yazi; then
       if is_musl; then YAZI_TARGET="x86_64-unknown-linux-musl"
       else             YAZI_TARGET="x86_64-unknown-linux-gnu"
       fi
-      YAZI_TAG="$(curl -sSf https://api.github.com/repos/sxyazi/yazi/releases/latest | grep '"tag_name"' | cut -d'"' -f4)"
-      [ -z "$YAZI_TAG" ] && echo "Failed to fetch Yazi version" && exit 1
-      curl -sSfLo /tmp/yazi.zip "https://github.com/sxyazi/yazi/releases/download/${YAZI_TAG}/yazi-${YAZI_TARGET}.zip"
+      curl -sSfLo /tmp/yazi.zip "https://github.com/sxyazi/yazi/releases/latest/download/yazi-${YAZI_TARGET}.zip"
       unzip -o /tmp/yazi.zip -d /tmp/yazi-extract
       mv "/tmp/yazi-extract/yazi-${YAZI_TARGET}/yazi" "$HOME/.local/bin/yazi"
       rm -rf /tmp/yazi.zip /tmp/yazi-extract
