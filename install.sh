@@ -20,7 +20,13 @@ fi
 
 # ── Starship ──────────────────────────────────────────────────────────────────
 if ! is_installed starship; then
-  curl -sS https://starship.rs/install.sh | sh -s -- --yes --bin-dir "$HOME/.local/bin"
+  if [ "$OS" = "Linux" ] && is_musl; then
+    curl -sSLo /tmp/starship.tar.gz "https://github.com/starship/starship/releases/latest/download/starship-x86_64-unknown-linux-musl.tar.gz"
+    tar -xzf /tmp/starship.tar.gz -C "$HOME/.local/bin" starship
+    rm /tmp/starship.tar.gz
+  else
+    curl -sS https://starship.rs/install.sh | sh -s -- --yes --bin-dir "$HOME/.local/bin"
+  fi
 fi
 
 # ── Zoxide ────────────────────────────────────────────────────────────────────
