@@ -63,12 +63,10 @@ return {
   },
 
   {
-    "mikavilpas/yazi.nvim",
-    event = "VeryLazy",
-    dependencies = { "nvim-lua/plenary.nvim" },
+    "stevearc/oil.nvim",
     config = function()
-      require("yazi").setup({ open_for_directories = false })
-      vim.keymap.set("n", "<leader>y", "<cmd>Yazi<cr>", { desc = "Open yazi" })
+      require("oil").setup()
+      vim.keymap.set("n", "-", "<cmd>Oil<cr>", { desc = "Open parent directory" })
     end,
   },
 }
