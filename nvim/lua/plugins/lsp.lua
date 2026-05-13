@@ -16,21 +16,24 @@ return {
     "neovim/nvim-lspconfig",
     dependencies = { "williamboman/mason-lspconfig.nvim" },
     config = function()
-      vim.lsp.config("pyright", {
-        settings = {
-          python = { analysis = { autoImportCompletions = true } },
-        },
-      })
-      vim.lsp.config("ruff", {
+      local ruff_config = {
         init_options = {
           settings = {
             fixAll = true,
             organizeImports = true,
           },
         },
-      })
+      }
 
-      vim.lsp.enable({ "pyright", "ruff", "rust_analyzer", "marksman" })
+      if vim.fn.has("nvim-0.11") == 1 then
+        vim.lsp.config("ruff", ruff_config)
+        vim.lsp.enable({ "ruff", "rust_analyzer", "marksman" })
+      else
+        local lspconfig = require("lspconfig")
+        lspconfig.ruff.setup(ruff_config)
+        lspconfig.rust_analyzer.setup({})
+        lspconfig.marksman.setup({})
+      end
 
       -- ty: Astral type checker (not yet in nvim-lspconfig, registered manually)
       vim.api.nvim_create_autocmd("FileType", {
