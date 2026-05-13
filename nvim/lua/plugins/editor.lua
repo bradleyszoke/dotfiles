@@ -84,7 +84,11 @@ return {
   {
     "stevearc/oil.nvim",
     config = function()
-      require("oil").setup()
+      require("oil").setup({
+        keymaps = {
+          ["q"] = { "actions.close", mode = "n" },
+        },
+      })
       vim.keymap.set("n", "-", "<cmd>Oil<cr>", { desc = "Open parent directory" })
     end,
   },
