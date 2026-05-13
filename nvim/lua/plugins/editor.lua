@@ -63,6 +63,15 @@ return {
   },
 
   {
+    "NeogitOrg/neogit",
+    dependencies = { "nvim-lua/plenary.nvim" },
+    config = function()
+      require("neogit").setup()
+      vim.keymap.set("n", "<leader>gg", "<cmd>Neogit<cr>", { desc = "Neogit" })
+    end,
+  },
+
+  {
     "stevearc/oil.nvim",
     config = function()
       require("oil").setup()
