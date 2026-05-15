@@ -48,6 +48,13 @@ return {
     end,
   },
 
+  {
+    "numToStr/Comment.nvim",
+    config = function()
+      require("Comment").setup()
+    end,
+  },
+
   { "nvim-lua/plenary.nvim" },
   {
     "nvim-telescope/telescope.nvim",
