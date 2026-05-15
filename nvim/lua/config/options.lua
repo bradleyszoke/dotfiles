@@ -9,6 +9,7 @@ vim.opt.tabstop = 4
 vim.opt.shiftwidth = 4
 vim.opt.colorcolumn = "88"  -- ruff's default line length
 
+vim.keymap.set("x", "p", '"_dP')
 vim.keymap.set("n", "gh", vim.diagnostic.open_float)
 vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action)
 
